@@ -1,0 +1,57 @@
+name: Test Java and deploy showcase
+
+on:
+  push:
+    branches: [master]
+    paths:
+      - 'src/**'
+      - 'docs/**'
+      - '.github/workflows/pages.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: carrito-pages
+  cancel-in-progress: true
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Java 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - name: Compile application and tests
+        run: |
+          mkdir -p build/classes
+          javac -encoding UTF-8 -d build/classes \
+            src/main/java/dev/juanjogamero/carrito/*.java \
+            src/test/java/dev/juanjogamero/carrito/*.java
+      - name: Run tests
+        run: java -ea -cp build/classes dev.juanjogamero.carrito.CarritoTest
+      - name: Run console example
+        run: java -cp build/classes dev.juanjogamero.carrito.Main
+
+  deploy:
+    needs: test
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Upload GitHub Pages content
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: docs
+      - name: Deploy
+        id: deployment
+        uses: actions/deploy-pages@v4
