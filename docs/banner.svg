@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="360" viewBox="0 0 1200 360" role="img" aria-labelledby="title desc">
+<title id="title">Java Shopping Cart</title><desc id="desc">Banner de proyecto Java con un carrito de compras y detalles de código</desc>
+<defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#101d31"/><stop offset="1" stop-color="#253e70"/></linearGradient><linearGradient id="tile" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#597ede"/><stop offset="1" stop-color="#3556a6"/></linearGradient></defs>
+<rect width="1200" height="360" rx="24" fill="url(#bg)"/>
+<circle cx="1070" cy="-40" r="270" fill="#7297e9" opacity=".07"/><circle cx="800" cy="390" r="210" fill="#a3baf3" opacity=".045"/>
+<rect x="58" y="47" width="133" height="30" rx="15" fill="#283f66" stroke="#46649a"/>
+<text x="124" y="67" text-anchor="middle" fill="#c8d8ff" font-family="Arial,sans-serif" font-size="12" font-weight="700" letter-spacing="2">JAVA 17</text>
+<text x="58" y="161" fill="#ffffff" font-family="Arial,sans-serif" font-size="57" font-weight="800">Shopping Cart</text>
+<text x="60" y="207" fill="#adc4fa" font-family="Arial,sans-serif" font-size="23">Lógica de compra. Código claro. Totales precisos.</text>
+<rect x="60" y="252" width="157" height="44" rx="9" fill="#c7d8fc"/>
+<text x="138" y="279" text-anchor="middle" fill="#1b3159" font-family="Arial,sans-serif" font-size="16" font-weight="700">BigDecimal</text>
+<rect x="230" y="252" width="172" height="44" rx="9" fill="#233758" stroke="#55729f"/>
+<text x="316" y="279" text-anchor="middle" fill="#deebff" font-family="Arial,sans-serif" font-size="16" font-weight="700">GitHub Actions</text>
+<g transform="translate(782 38)">
+<rect width="349" height="284" rx="20" fill="#132139" stroke="#506895"/>
+<rect x="24" y="25" width="301" height="50" rx="11" fill="#213657"/>
+<text x="43" y="57" fill="#eef4ff" font-family="Arial,sans-serif" font-size="17" font-weight="700">Resumen del carrito</text>
+<rect x="25" y="90" width="55" height="55" rx="12" fill="url(#tile)"/><path d="M39 108h5l5 23h21l5-17H46m5 22a2 2 0 1 0 0 .1m16-.1a2 2 0 1 0 0 .1" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="98" y="110" fill="#f2f6ff" font-family="Arial,sans-serif" font-size="16" font-weight="700">Tarjeta SD 64 GB</text><text x="98" y="134" fill="#9fb6dc" font-family="Arial,sans-serif" font-size="13">2 × 19,95 €</text><text x="303" y="134" text-anchor="end" fill="#ffffff" font-family="Arial,sans-serif" font-size="16" font-weight="700">39,90 €</text>
+<line x1="25" y1="162" x2="325" y2="162" stroke="#405777"/>
+<text x="26" y="199" fill="#aebedd" font-family="Arial,sans-serif" font-size="15">Total</text><text x="325" y="203" text-anchor="end" fill="#ffffff" font-family="Arial,sans-serif" font-size="29" font-weight="700">488,90 €</text>
+<rect x="25" y="226" width="300" height="36" rx="8" fill="#b4c8fa"/>
+<text x="175" y="250" text-anchor="middle" fill="#233a64" font-family="Arial,sans-serif" font-size="14" font-weight="700">Demo interactiva</text>
+</g>
+</svg>
