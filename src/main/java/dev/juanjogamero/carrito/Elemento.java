@@ -17,7 +17,11 @@ public final class Elemento {
         if (precioUnitario.signum() < 0) throw new IllegalArgumentException("El precio no puede ser negativo");
         if (cantidad <= 0) throw new IllegalArgumentException("La cantidad debe ser mayor que cero");
         this.nombre = nombre.trim();
-        this.precioUnitario = precioUnitario.setScale(2, RoundingMode.UNNECESSARY);
+        try {
+            this.precioUnitario = precioUnitario.setScale(2, RoundingMode.UNNECESSARY);
+        } catch (ArithmeticException error) {
+            throw new IllegalArgumentException("El precio debe tener como máximo dos decimales", error);
+        }
         this.cantidad = cantidad;
     }
 
