@@ -31,15 +31,32 @@ carrito.eliminar("Canon EOS 2000D");</code></pre></div></div></section>
 <footer class="foot"><div class="container"><span>Carrito Java · Proyecto educativo · No es una tienda real</span><a href="https://github.com/juanjogamero/java-shopping-cart" target="_blank" rel="noopener noreferrer">Ver repositorio ↗</a></div></footer>
 <script>
 const catalog=[{name:'Tarjeta SD 64 GB',cents:1995,icon:'💾'},{name:'Canon EOS 2000D',cents:44900,icon:'📷'},{name:'Samsung Galaxy Tab',cents:19900,icon:'📱'}];
-let cart={};
+const storageKey='java-shopping-cart-demo-v1';
+function restoreCart(){
+ try {
+  const stored=JSON.parse(localStorage.getItem(storageKey)||'{}');
+  if(!stored||typeof stored!=='object'||Array.isArray(stored))return {};
+  const clean={};
+  for(const [key,value] of Object.entries(stored)){
+   if(!/^[0-9]+$/.test(key)||Number(key)>=catalog.length)continue;
+   if(Number.isInteger(value)&&value>0&&value<=1000)clean[key]=value;
+  }
+  return clean;
+ } catch {return {}}
+}
+function saveCart(){
+ try {localStorage.setItem(storageKey,JSON.stringify(cart))}catch{/* Permitir uso sin almacenamiento */}
+}
+let cart=restoreCart();
 const money=cents=>new Intl.NumberFormat('es-ES',{style:'currency',currency:'EUR'}).format(cents/100);
 const $=id=>document.getElementById(id);
 function draw(){
  $('products').replaceChildren();
- catalog.forEach((p,i)=>{const row=document.createElement('div');row.className='product';const visual=document.createElement('div');visual.className='product-visual';visual.textContent=p.icon;const detail=document.createElement('div');const name=document.createElement('strong');name.textContent=p.name;const desc=document.createElement('small');desc.textContent='Producto de demostración';const price=document.createElement('div');price.className='price';price.textContent=money(p.cents);detail.append(name,desc,price);const btn=document.createElement('button');btn.className='add';btn.textContent='+ Añadir';btn.addEventListener('click',()=>{cart[i]=(cart[i]||0)+1;draw()});row.append(visual,detail,btn);$('products').append(row)});
+ catalog.forEach((p,i)=>{const row=document.createElement('div');row.className='product';const visual=document.createElement('div');visual.className='product-visual';visual.textContent=p.icon;const detail=document.createElement('div');const name=document.createElement('strong');name.textContent=p.name;const desc=document.createElement('small');desc.textContent='Producto de demostración';const price=document.createElement('div');price.className='price';price.textContent=money(p.cents);detail.append(name,desc,price);const btn=document.createElement('button');btn.className='add';btn.textContent='+ Añadir';btn.addEventListener('click',()=>{cart[i]=Math.min(1000,(cart[i]||0)+1);draw()});row.append(visual,detail,btn);$('products').append(row)});
  const body=$('cartItems');body.replaceChildren();const ids=Object.keys(cart).filter(i=>cart[i]>0);
  if(ids.length===0){const msg=document.createElement('div');msg.className='empty';msg.textContent='Tu carrito está vacío. Añade un producto para comenzar.';body.append(msg)}
  ids.forEach(id=>{const p=catalog[Number(id)];const row=document.createElement('div');row.className='cart-item';const text=document.createElement('div');const title=document.createElement('strong');title.textContent=p.name;const sub=document.createElement('small');sub.textContent=money(p.cents*cart[id]);text.append(title,sub);const ctr=document.createElement('div');ctr.className='cart-controls';const minus=document.createElement('button');minus.setAttribute('aria-label','Reducir '+p.name);minus.textContent='−';minus.onclick=()=>{cart[id]--;if(cart[id]===0)delete cart[id];draw()};const count=document.createElement('strong');count.textContent=cart[id];const plus=document.createElement('button');plus.setAttribute('aria-label','Aumentar '+p.name);plus.textContent='+';plus.onclick=()=>{if(cart[id]<1000)cart[id]++;draw()};const remove=document.createElement('button');remove.className='remove';remove.setAttribute('aria-label','Eliminar '+p.name);remove.textContent='×';remove.onclick=()=>{delete cart[id];draw()};ctr.append(minus,count,plus,remove);row.append(text,ctr);body.append(row)});
+ saveCart();
  $('types').textContent=ids.length;const units=ids.reduce((s,id)=>s+cart[id],0);$('units').textContent=units;$('cartBadge').textContent='('+units+')';$('total').textContent=money(ids.reduce((s,id)=>s+catalog[Number(id)].cents*cart[id],0));
 }
 $('clearBtn').onclick=()=>{cart={};draw()};draw();
